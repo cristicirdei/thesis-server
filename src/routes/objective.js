@@ -4,7 +4,7 @@ import { getObjective, postObjectiveUpdates } from "../controllers/objective";
 
 const objectiveRouter = new Router();
 
-objectiveRouter.get("/:id/:owner", getObjective);
+objectiveRouter.get("/:project/:id", getObjective);
 objectiveRouter.post("/:project/:id", postObjectiveUpdates);
 
 export default objectiveRouter;
