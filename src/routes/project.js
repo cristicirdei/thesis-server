@@ -6,7 +6,7 @@ import { getProject, postProject } from "../controllers/project";
 
 const projectRouter = new Router();
 
-//projectRouter.use(verifyUser);
+projectRouter.use(verifyUser);
 projectRouter.get("/:id", getProject);
 projectRouter.post("/", postProject);
 

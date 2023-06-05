@@ -4,7 +4,7 @@ const User = UserModule.User;
 import { ERROR_CODES } from "../util/errors";
 import { hashPassword } from "../util/hashPassword";
 import tokenGenerator from "../util/tokenGenerator";
-import { userId } from "../database/databaseOperations";
+import { getProjectData, userId } from "../database/databaseOperations";
 
 /**
  * It takes in a request, response, and next function, and then creates a new user with the information
@@ -43,9 +43,20 @@ export const postUserLogin = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await userId(email);
   console.log(user);
+
+  const project = await getProjectData(user._id);
+  let proj;
+  console.log(project, project?.length);
+  if (project?.length > 0) {
+    proj = true;
+  } else {
+    proj = false;
+  }
+
   const payload = {
     id: user,
-    email: email
+    email: email,
+    project: proj
   };
   const token = tokenGenerator(payload);
   return res.status(ERROR_CODES.SUCCESS).send({ token });

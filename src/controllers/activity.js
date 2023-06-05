@@ -4,7 +4,8 @@ import {
   createActivityTask,
   updateActivityTask,
   getObjectiveData,
-  addActivityDates
+  addActivityDates,
+  getActivityPlanDates
 } from "../database/databaseOperations";
 
 export const getActivity = async (_req, res, next) => {
@@ -12,6 +13,7 @@ export const getActivity = async (_req, res, next) => {
 };
 
 export const getActivityId = async (req, res, next) => {
+  console.log("am i here tho?");
   const activity = await getActivityData(req.params.project, req.params.id);
 
   let objectives;
@@ -34,6 +36,13 @@ export const getActivityId = async (req, res, next) => {
     activity: activity[0],
     objectives: [objectives[0][0], objectives[1][0]]
   });
+};
+
+export const getActivitiesDates = async (req, res, next) => {
+  console.log("at least got here");
+  const activities = await getActivityPlanDates(req.params.project);
+  console.log(activities);
+  return res.status(200).send(activities);
 };
 
 export const postNote = async (req, res, next) => {

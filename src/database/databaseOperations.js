@@ -168,6 +168,14 @@ export async function getActivityData(ownerId, activityId) {
   return await Activity.find({ "owner._id": objectId, a_id: activityId });
 }
 
+export async function getActivityPlanDates(ownerId) {
+  const objectId = new ObjectId(ownerId);
+  return await Activity.find(
+    { "owner._id": objectId },
+    { a_id: 1, name: 1, startDate: 1, endDate: 1 }
+  );
+}
+
 export async function getObjectiveData(ownerId, objectiveId) {
   const objectId = new ObjectId(ownerId);
   return await Objective.find({ "owner._id": objectId, o_id: objectiveId });

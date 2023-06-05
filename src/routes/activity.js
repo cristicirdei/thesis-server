@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import {
+  getActivitiesDates,
   getActivity,
   getActivityId,
   postNote,
@@ -8,10 +9,13 @@ import {
   postTask,
   updateTask
 } from "../controllers/activity";
+import verifyUser from "../middleware/auth";
 
 const activityRouter = new Router();
 
+activityRouter.use(verifyUser);
 activityRouter.get("/", getActivity);
+activityRouter.get("/dates/:project", getActivitiesDates);
 activityRouter.get("/:project/:id", getActivityId);
 activityRouter.post("/plan/:owner", postPlan);
 activityRouter.post("/note/:owner/:id", postNote);
